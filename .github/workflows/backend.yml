@@ -1,36 +1,27 @@
-name: Java Maven CI/CD Pipeline
+name: maven ci/cd pipeline
 
-on:
-  push:
-  workflow_dispatch:
+on: 
+  push
 
 jobs:
   build:
     runs-on: ubuntu-latest
+          
     steps:
-      - name: Checkout Repository
+      - name: Checkout mein Repo
         uses: actions/checkout@v3
 
-      - name: Set up JDK
+      - name: Setup java
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
           java-version: '17'
+          distribution: 'temurin'
 
-      - name: Build with Maven
-        run: mvn clean compile
-
-      - name: Test with Maven
-        run: mvn test
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deployment Simulation
-        run: echo "Deployment Simulation"
+      - name: Build und Test
+        run: mvn clean test package
       
-      - name: Package & Deploy
-        run: |
-          7z a backend.zip target/*.jar
-          echo "Anwendung deployed"
+      - name: Anwendung verpacken mit 7zip
+        run: 7z a backend-application.7z target/*
+
+      - name: Deployment
+        run: echo "Backend wurde erfolgreich deployed!"
