@@ -1,7 +1,8 @@
 name: Java Maven CI/CD Pipeline
 
 on:
-  push
+  push:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -33,12 +34,5 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Archive Build Artifacts
-        run: |
-          sudo apt-get install -y p7zip-full
-          7z a build_artifacts.zip target/*
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-artifacts
-          path: build_artifacts.zip
+      - name: Anwendung verpacken
+        run: 7z a springboot-backend.7z target/*.jar
