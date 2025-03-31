@@ -1,13 +1,7 @@
 name: Java Maven CI/CD Pipeline
 
 on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
-  workflow_dispatch:
+  push
 
 jobs:
   build:
