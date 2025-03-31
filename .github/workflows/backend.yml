@@ -29,10 +29,8 @@ jobs:
     steps:
       - name: Deployment Simulation
         run: echo "Deployment Simulation"
-
-  artifact:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Anwendung verpacken
-        run: 7z a springboot-backend.7z target/*.jar
+      
+      - name: Package & Deploy
+        run: |
+          7z a backend.zip target/*.jar
+          echo "Anwendung deployed"
